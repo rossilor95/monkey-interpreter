@@ -25,4 +25,17 @@ class LexerTest {
         // Then
         assertContentEquals(expected, tokens)
     }
+
+    @Test
+    fun `should ignore whitespace`() {
+        // Given
+        val input = "  \n \r \t "
+        val expected = listOf(Token.EndOfFile)
+
+        // When
+        val tokens = Lexer(input).asSequence().toList()
+
+        // Then
+        assertContentEquals(expected, tokens)
+    }
 }
