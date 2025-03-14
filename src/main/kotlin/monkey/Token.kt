@@ -4,7 +4,7 @@ sealed interface Token {
     object Illegal : Token
     object EndOfFile : Token
 
-    data class Identifier(val name: String) : Token
+    data class Identifier(val value: String) : Token
     data class NumberLiteral(val value: Int) : Token
     data class StringLiteral(val value: String) : Token
 

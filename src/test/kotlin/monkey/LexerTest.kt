@@ -16,14 +16,51 @@ class LexerTest {
             Token.Delimiter.RIGHT_PAREN,
             Token.Delimiter.LEFT_BRACE,
             Token.Delimiter.RIGHT_BRACE,
-            Token.EndOfFile
+            Token.EndOfFile,
         )
 
         // When
-        val tokens = Lexer(input).asSequence().toList()
+        val actual = Lexer(input).asSequence().toList()
 
         // Then
-        assertContentEquals(expected, tokens)
+        assertContentEquals(expected, actual)
+    }
+
+    @Test
+    fun `should read keywords`() {
+        // Given
+        val input = "let fn"
+        val expected = listOf(
+            Token.Keyword.LET,
+            Token.Keyword.FUNCTION,
+            Token.EndOfFile,
+        )
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
+        assertContentEquals(expected, actual)
+    }
+
+    @Test
+    fun `should read identifiers`() {
+        // Given
+        val input = "foo Bar fooBar foo_baz _quux"
+        val expected = listOf(
+            Token.Identifier("foo"),
+            Token.Identifier("Bar"),
+            Token.Identifier("fooBar"),
+            Token.Identifier("foo_baz"),
+            Token.Identifier("_quux"),
+            Token.EndOfFile,
+        )
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
+        assertContentEquals(expected, actual)
     }
 
     @Test
@@ -33,9 +70,9 @@ class LexerTest {
         val expected = listOf(Token.EndOfFile)
 
         // When
-        val tokens = Lexer(input).asSequence().toList()
+        val actual = Lexer(input).asSequence().toList()
 
         // Then
-        assertContentEquals(expected, tokens)
+        assertContentEquals(expected, actual)
     }
 }
