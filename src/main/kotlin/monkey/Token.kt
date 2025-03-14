@@ -5,7 +5,7 @@ sealed interface Token {
     object EndOfFile : Token
 
     data class Identifier(val value: String) : Token
-    data class NumberLiteral(val value: Int) : Token
+    data class NumberLiteral(val value: String) : Token
     data class StringLiteral(val value: String) : Token
 
     enum class Operator : Token {

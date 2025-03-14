@@ -10,6 +10,7 @@ class Lexer(private val input: String) : Iterator<Token> {
         return when (ch) {
             in setOf('\n', '\t', ' ', '\r') -> next()
             in allowedChars -> readIdentifier()
+            in '0'..'9' -> readNumber()
             ',' -> Token.Delimiter.COMMA
             ';' -> Token.Delimiter.SEMICOLON
             '(' -> Token.Delimiter.LEFT_PAREN
@@ -38,5 +39,15 @@ class Lexer(private val input: String) : Iterator<Token> {
         val endIndex = position + 1
         val value = input.substring(startIndex, endIndex)
         return keywordTable[value] ?: Token.Identifier(value)
+    }
+
+    private fun readNumber(): Token.NumberLiteral {
+        val startIndex = position
+        while (peekChar() in '0'..'9' && hasNext()) {
+            position += 1
+        }
+        val endIndex = position + 1
+        val value = input.substring(startIndex, endIndex)
+        return Token.NumberLiteral(value)
     }
 }

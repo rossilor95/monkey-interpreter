@@ -64,6 +64,24 @@ class LexerTest {
     }
 
     @Test
+    fun `should read number literals`() {
+        // Given
+        val input = "1 234 567890"
+        val expected = listOf(
+            Token.NumberLiteral("1"),
+            Token.NumberLiteral("234"),
+            Token.NumberLiteral("567890"),
+            Token.EndOfFile,
+        )
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
+        assertContentEquals(expected, actual)
+    }
+
+    @Test
     fun `should ignore whitespace`() {
         // Given
         val input = "  \n \r \t "
