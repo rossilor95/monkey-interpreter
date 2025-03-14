@@ -11,6 +11,26 @@ class Lexer(private val input: String) : Iterator<Token> {
             in setOf('\n', '\t', ' ', '\r') -> next()
             in allowedChars -> readIdentifier()
             in '0'..'9' -> readNumber()
+            '=' -> if (peekChar() == '=') {
+                position += 1
+                Token.Operator.EQUAL
+            } else {
+                Token.Operator.ASSIGN
+            }
+
+            '!' -> if (peekChar() == '=') {
+                position += 1
+                Token.Operator.NOT_EQUAL
+            } else {
+                Token.Operator.BANG
+            }
+
+            '+' -> Token.Operator.PLUS
+            '-' -> Token.Operator.MINUS
+            '/' -> Token.Operator.SLASH
+            '*' -> Token.Operator.STAR
+            '<' -> Token.Operator.LESS_THAN
+            '>' -> Token.Operator.GREATER_THAN
             ',' -> Token.Delimiter.COMMA
             ';' -> Token.Delimiter.SEMICOLON
             '(' -> Token.Delimiter.LEFT_PAREN
@@ -33,7 +53,7 @@ class Lexer(private val input: String) : Iterator<Token> {
 
     private fun readIdentifier(): Token {
         val startIndex = position
-        while (peekChar() in allowedChars && hasNext()) {
+        while (peekChar() in allowedChars) {
             position += 1
         }
         val endIndex = position + 1
@@ -43,7 +63,7 @@ class Lexer(private val input: String) : Iterator<Token> {
 
     private fun readNumber(): Token.NumberLiteral {
         val startIndex = position
-        while (peekChar() in '0'..'9' && hasNext()) {
+        while (peekChar() in '0'..'9') {
             position += 1
         }
         val endIndex = position + 1

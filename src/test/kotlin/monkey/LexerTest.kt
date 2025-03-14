@@ -6,6 +6,31 @@ import kotlin.test.assertContentEquals
 class LexerTest {
 
     @Test
+    fun `should read operators`() {
+        // Given
+        val input = "= + - ! * / < > == !="
+        val expected = listOf(
+            Token.Operator.ASSIGN,
+            Token.Operator.PLUS,
+            Token.Operator.MINUS,
+            Token.Operator.BANG,
+            Token.Operator.STAR,
+            Token.Operator.SLASH,
+            Token.Operator.LESS_THAN,
+            Token.Operator.GREATER_THAN,
+            Token.Operator.EQUAL,
+            Token.Operator.NOT_EQUAL,
+            Token.EndOfFile,
+        )
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
+        assertContentEquals(expected, actual)
+    }
+
+    @Test
     fun `should read delimiters`() {
         // Given
         val input = ", ; () {}"

@@ -1,15 +1,15 @@
 package monkey
 
 sealed interface Token {
-    object Illegal : Token
-    object EndOfFile : Token
+    data object Illegal : Token
+    data object EndOfFile : Token
 
     data class Identifier(val value: String) : Token
     data class NumberLiteral(val value: String) : Token
     data class StringLiteral(val value: String) : Token
 
     enum class Operator : Token {
-        ASSIGN, PLUS
+        ASSIGN, PLUS, MINUS, BANG, STAR, SLASH, LESS_THAN, GREATER_THAN, EQUAL, NOT_EQUAL,
     }
 
     enum class Delimiter : Token {
