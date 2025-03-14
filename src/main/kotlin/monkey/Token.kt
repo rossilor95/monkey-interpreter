@@ -17,11 +17,16 @@ sealed interface Token {
     }
 
     enum class Keyword : Token {
-        FUNCTION, LET,
+        FUNCTION, LET, TRUE, FALSE, IF, ELSE, RETURN,
     }
 }
 
 val keywordTable = mapOf(
     "fn" to Token.Keyword.FUNCTION,
     "let" to Token.Keyword.LET,
+    "true" to Token.Keyword.TRUE,
+    "false" to Token.Keyword.FALSE,
+    "if" to Token.Keyword.IF,
+    "else" to Token.Keyword.ELSE,
+    "return" to Token.Keyword.RETURN,
 )

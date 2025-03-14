@@ -54,10 +54,15 @@ class LexerTest {
     @Test
     fun `should read keywords`() {
         // Given
-        val input = "let fn"
+        val input = "let fn true false if else return"
         val expected = listOf(
             Token.Keyword.LET,
             Token.Keyword.FUNCTION,
+            Token.Keyword.TRUE,
+            Token.Keyword.FALSE,
+            Token.Keyword.IF,
+            Token.Keyword.ELSE,
+            Token.Keyword.RETURN,
             Token.EndOfFile,
         )
 
