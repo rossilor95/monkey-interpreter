@@ -61,13 +61,13 @@ class Lexer(private val input: String) : Iterator<Token> {
         return keywordTable[value] ?: Token.Identifier(value)
     }
 
-    private fun readNumber(): Token.NumberLiteral {
+    private fun readNumber(): Token.Integer {
         val startIndex = position
         while (peekChar() in '0'..'9') {
             position += 1
         }
         val endIndex = position + 1
         val value = input.substring(startIndex, endIndex)
-        return Token.NumberLiteral(value)
+        return Token.Integer(value)
     }
 }

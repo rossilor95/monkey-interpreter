@@ -98,9 +98,9 @@ class LexerTest {
         // Given
         val input = "1 234 567890"
         val expected = listOf(
-            Token.NumberLiteral("1"),
-            Token.NumberLiteral("234"),
-            Token.NumberLiteral("567890"),
+            Token.Integer("1"),
+            Token.Integer("234"),
+            Token.Integer("567890"),
             Token.EndOfFile,
         )
 
