@@ -1,5 +1,7 @@
 package monkey
 
+import monkey.Token.Type
+
 class Lexer(private val input: String) : Iterator<Token> {
 
     private var position = -1
@@ -13,32 +15,32 @@ class Lexer(private val input: String) : Iterator<Token> {
             in '0'..'9' -> readNumber()
             '=' -> if (peekChar() == '=') {
                 position += 1
-                Token(Token.Type.EQUAL)
+                Token(Type.EQUAL)
             } else {
-                Token(Token.Type.ASSIGN)
+                Token(Type.ASSIGN)
             }
 
             '!' -> if (peekChar() == '=') {
                 position += 1
-                Token(Token.Type.NOT_EQUAL)
+                Token(Type.NOT_EQUAL)
             } else {
-                Token(Token.Type.BANG)
+                Token(Type.BANG)
             }
 
-            '+' -> Token(Token.Type.PLUS)
-            '-' -> Token(Token.Type.MINUS)
-            '/' -> Token(Token.Type.SLASH)
-            '*' -> Token(Token.Type.STAR)
-            '<' -> Token(Token.Type.LESS_THAN)
-            '>' -> Token(Token.Type.GREATER_THAN)
-            ',' -> Token(Token.Type.COMMA)
-            ';' -> Token(Token.Type.SEMICOLON)
-            '(' -> Token(Token.Type.LEFT_PAREN)
-            ')' -> Token(Token.Type.RIGHT_PAREN)
-            '{' -> Token(Token.Type.LEFT_BRACE)
-            '}' -> Token(Token.Type.RIGHT_BRACE)
-            Char.MIN_VALUE -> Token(Token.Type.EOF)
-            else -> Token(Token.Type.ILLEGAL)
+            '+' -> Token(Type.PLUS)
+            '-' -> Token(Type.MINUS)
+            '/' -> Token(Type.SLASH)
+            '*' -> Token(Type.STAR)
+            '<' -> Token(Type.LESS_THAN)
+            '>' -> Token(Type.GREATER_THAN)
+            ',' -> Token(Type.COMMA)
+            ';' -> Token(Type.SEMICOLON)
+            '(' -> Token(Type.LEFT_PAREN)
+            ')' -> Token(Type.RIGHT_PAREN)
+            '{' -> Token(Type.LEFT_BRACE)
+            '}' -> Token(Type.RIGHT_BRACE)
+            Char.MIN_VALUE -> Token(Type.EOF)
+            else -> Token(Type.ILLEGAL)
         }
     }
 
@@ -60,7 +62,7 @@ class Lexer(private val input: String) : Iterator<Token> {
         val lexeme = input.substring(startIndex, endIndex)
         return keywordTable[lexeme]?.let {
             Token(type = it)
-        } ?: Token(Token.Type.IDENTIFIER, lexeme)
+        } ?: Token(Type.IDENTIFIER, lexeme)
     }
 
     private fun readNumber(): Token {
@@ -70,6 +72,6 @@ class Lexer(private val input: String) : Iterator<Token> {
         }
         val endIndex = position + 1
         val lexeme = input.substring(startIndex, endIndex)
-        return Token(Token.Type.INTEGER, lexeme)
+        return Token(Type.INTEGER, lexeme)
     }
 }

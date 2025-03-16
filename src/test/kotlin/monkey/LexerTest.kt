@@ -1,5 +1,6 @@
 package monkey
 
+import monkey.Token.Type
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 
@@ -10,17 +11,17 @@ class LexerTest {
         // Given
         val input = "= + - ! * / < > == !="
         val expected = listOf(
-            Token(Token.Type.ASSIGN),
-            Token(Token.Type.PLUS),
-            Token(Token.Type.MINUS),
-            Token(Token.Type.BANG),
-            Token(Token.Type.STAR),
-            Token(Token.Type.SLASH),
-            Token(Token.Type.LESS_THAN),
-            Token(Token.Type.GREATER_THAN),
-            Token(Token.Type.EQUAL),
-            Token(Token.Type.NOT_EQUAL),
-            Token(Token.Type.EOF),
+            Token(Type.ASSIGN),
+            Token(Type.PLUS),
+            Token(Type.MINUS),
+            Token(Type.BANG),
+            Token(Type.STAR),
+            Token(Type.SLASH),
+            Token(Type.LESS_THAN),
+            Token(Type.GREATER_THAN),
+            Token(Type.EQUAL),
+            Token(Type.NOT_EQUAL),
+            Token(Type.EOF),
         )
 
         // When
@@ -35,13 +36,13 @@ class LexerTest {
         // Given
         val input = ", ; () {}"
         val expected = listOf(
-            Token(Token.Type.COMMA),
-            Token(Token.Type.SEMICOLON),
-            Token(Token.Type.LEFT_PAREN),
-            Token(Token.Type.RIGHT_PAREN),
-            Token(Token.Type.LEFT_BRACE),
-            Token(Token.Type.RIGHT_BRACE),
-            Token(Token.Type.EOF),
+            Token(Type.COMMA),
+            Token(Type.SEMICOLON),
+            Token(Type.LEFT_PAREN),
+            Token(Type.RIGHT_PAREN),
+            Token(Type.LEFT_BRACE),
+            Token(Type.RIGHT_BRACE),
+            Token(Type.EOF),
         )
 
         // When
@@ -56,14 +57,14 @@ class LexerTest {
         // Given
         val input = "let fn true false if else return"
         val expected = listOf(
-            Token(Token.Type.LET),
-            Token(Token.Type.FUNCTION),
-            Token(Token.Type.TRUE),
-            Token(Token.Type.FALSE),
-            Token(Token.Type.IF),
-            Token(Token.Type.ELSE),
-            Token(Token.Type.RETURN),
-            Token(Token.Type.EOF),
+            Token(Type.LET),
+            Token(Type.FUNCTION),
+            Token(Type.TRUE),
+            Token(Type.FALSE),
+            Token(Type.IF),
+            Token(Type.ELSE),
+            Token(Type.RETURN),
+            Token(Type.EOF),
         )
 
         // When
@@ -78,12 +79,12 @@ class LexerTest {
         // Given
         val input = "foo Bar fooBar foo_baz _quux"
         val expected = listOf(
-            Token(Token.Type.IDENTIFIER, "foo"),
-            Token(Token.Type.IDENTIFIER, "Bar"),
-            Token(Token.Type.IDENTIFIER, "fooBar"),
-            Token(Token.Type.IDENTIFIER, "foo_baz"),
-            Token(Token.Type.IDENTIFIER, "_quux"),
-            Token(Token.Type.EOF),
+            Token(Type.IDENTIFIER, "foo"),
+            Token(Type.IDENTIFIER, "Bar"),
+            Token(Type.IDENTIFIER, "fooBar"),
+            Token(Type.IDENTIFIER, "foo_baz"),
+            Token(Type.IDENTIFIER, "_quux"),
+            Token(Type.EOF),
         )
 
         // When
@@ -98,10 +99,10 @@ class LexerTest {
         // Given
         val input = "1 234 567890"
         val expected = listOf(
-            Token(Token.Type.INTEGER, "1"),
-            Token(Token.Type.INTEGER, "234"),
-            Token(Token.Type.INTEGER, "567890"),
-            Token(Token.Type.EOF),
+            Token(Type.INTEGER, "1"),
+            Token(Type.INTEGER, "234"),
+            Token(Type.INTEGER, "567890"),
+            Token(Type.EOF),
         )
 
         // When
@@ -116,7 +117,7 @@ class LexerTest {
         // Given
         val input = "  \n \r \t "
         val expected = listOf(
-            Token(Token.Type.EOF),
+            Token(Type.EOF),
         )
 
         // When
