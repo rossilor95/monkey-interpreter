@@ -13,32 +13,32 @@ class Lexer(private val input: String) : Iterator<Token> {
             in '0'..'9' -> readNumber()
             '=' -> if (peekChar() == '=') {
                 position += 1
-                Token.Operator.EQUAL
+                Token(Token.Type.EQUAL)
             } else {
-                Token.Operator.ASSIGN
+                Token(Token.Type.ASSIGN)
             }
 
             '!' -> if (peekChar() == '=') {
                 position += 1
-                Token.Operator.NOT_EQUAL
+                Token(Token.Type.NOT_EQUAL)
             } else {
-                Token.Operator.BANG
+                Token(Token.Type.BANG)
             }
 
-            '+' -> Token.Operator.PLUS
-            '-' -> Token.Operator.MINUS
-            '/' -> Token.Operator.SLASH
-            '*' -> Token.Operator.STAR
-            '<' -> Token.Operator.LESS_THAN
-            '>' -> Token.Operator.GREATER_THAN
-            ',' -> Token.Delimiter.COMMA
-            ';' -> Token.Delimiter.SEMICOLON
-            '(' -> Token.Delimiter.LEFT_PAREN
-            ')' -> Token.Delimiter.RIGHT_PAREN
-            '{' -> Token.Delimiter.LEFT_BRACE
-            '}' -> Token.Delimiter.RIGHT_BRACE
-            Char.MIN_VALUE -> Token.EndOfFile
-            else -> Token.Illegal
+            '+' -> Token(Token.Type.PLUS)
+            '-' -> Token(Token.Type.MINUS)
+            '/' -> Token(Token.Type.SLASH)
+            '*' -> Token(Token.Type.STAR)
+            '<' -> Token(Token.Type.LESS_THAN)
+            '>' -> Token(Token.Type.GREATER_THAN)
+            ',' -> Token(Token.Type.COMMA)
+            ';' -> Token(Token.Type.SEMICOLON)
+            '(' -> Token(Token.Type.LEFT_PAREN)
+            ')' -> Token(Token.Type.RIGHT_PAREN)
+            '{' -> Token(Token.Type.LEFT_BRACE)
+            '}' -> Token(Token.Type.RIGHT_BRACE)
+            Char.MIN_VALUE -> Token(Token.Type.EOF)
+            else -> Token(Token.Type.ILLEGAL)
         }
     }
 
@@ -57,17 +57,19 @@ class Lexer(private val input: String) : Iterator<Token> {
             position += 1
         }
         val endIndex = position + 1
-        val value = input.substring(startIndex, endIndex)
-        return keywordTable[value] ?: Token.Identifier(value)
+        val lexeme = input.substring(startIndex, endIndex)
+        return keywordTable[lexeme]?.let {
+            Token(type = it)
+        } ?: Token(Token.Type.IDENTIFIER, lexeme)
     }
 
-    private fun readNumber(): Token.Integer {
+    private fun readNumber(): Token {
         val startIndex = position
         while (peekChar() in '0'..'9') {
             position += 1
         }
         val endIndex = position + 1
-        val value = input.substring(startIndex, endIndex)
-        return Token.Integer(value)
+        val lexeme = input.substring(startIndex, endIndex)
+        return Token(Token.Type.INTEGER, lexeme)
     }
 }

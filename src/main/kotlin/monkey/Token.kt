@@ -1,31 +1,52 @@
 package monkey
 
-sealed interface Token {
-    data object Illegal : Token
-    data object EndOfFile : Token
+data class Token(val type: Type, val lexeme: String? = null) {
 
-    data class Identifier(val literal: String) : Token
-    data class Integer(val literal: String) : Token
+    enum class Type {
+        ILLEGAL,
+        EOF,
 
-    enum class Operator : Token {
-        ASSIGN, PLUS, MINUS, BANG, STAR, SLASH, LESS_THAN, GREATER_THAN, EQUAL, NOT_EQUAL,
-    }
+        // Identifiers + literals
+        IDENTIFIER,
+        INTEGER,
 
-    enum class Delimiter : Token {
-        COMMA, LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE, SEMICOLON,
-    }
+        // Operators
+        ASSIGN,
+        PLUS,
+        MINUS,
+        BANG,
+        STAR,
+        SLASH,
+        LESS_THAN,
+        GREATER_THAN,
+        EQUAL,
+        NOT_EQUAL,
 
-    enum class Keyword : Token {
-        FUNCTION, LET, TRUE, FALSE, IF, ELSE, RETURN,
+        // Delimiters
+        COMMA,
+        LEFT_PAREN,
+        RIGHT_PAREN,
+        LEFT_BRACE,
+        RIGHT_BRACE,
+        SEMICOLON,
+
+        // Keywords
+        FUNCTION,
+        LET,
+        TRUE,
+        FALSE,
+        IF,
+        ELSE,
+        RETURN,
     }
 }
 
 val keywordTable = mapOf(
-    "fn" to Token.Keyword.FUNCTION,
-    "let" to Token.Keyword.LET,
-    "true" to Token.Keyword.TRUE,
-    "false" to Token.Keyword.FALSE,
-    "if" to Token.Keyword.IF,
-    "else" to Token.Keyword.ELSE,
-    "return" to Token.Keyword.RETURN,
+    "fn" to Token.Type.FUNCTION,
+    "let" to Token.Type.LET,
+    "true" to Token.Type.TRUE,
+    "false" to Token.Type.FALSE,
+    "if" to Token.Type.IF,
+    "else" to Token.Type.ELSE,
+    "return" to Token.Type.RETURN,
 )
