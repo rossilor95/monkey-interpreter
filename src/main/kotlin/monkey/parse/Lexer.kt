@@ -1,6 +1,6 @@
-package monkey
+package monkey.parse
 
-import monkey.Token.Type
+import monkey.parse.Token.Type
 
 class Lexer(private val input: String) : Iterator<Token> {
 

@@ -1,4 +1,4 @@
-package monkey
+package monkey.parse
 
 data class Token(val type: Type, val lexeme: String? = null) {
 

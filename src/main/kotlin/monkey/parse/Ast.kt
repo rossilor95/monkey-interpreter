@@ -1,4 +1,4 @@
-package monkey
+package monkey.parse
 
 sealed interface Node
 

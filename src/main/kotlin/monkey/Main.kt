@@ -1,5 +1,7 @@
 package monkey
 
+import monkey.parse.Lexer
+
 private const val PROMPT = ">> "
 
 fun main() {
