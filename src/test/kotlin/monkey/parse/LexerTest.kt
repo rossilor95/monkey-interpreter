@@ -10,6 +10,11 @@ class LexerTest {
     fun `should read operators`() {
         // Given
         val input = "= + - ! * / < > == !="
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
         val expected = listOf(
             Token(Type.ASSIGN),
             Token(Type.PLUS),
@@ -23,11 +28,6 @@ class LexerTest {
             Token(Type.NOT_EQUAL),
             Token(Type.EOF),
         )
-
-        // When
-        val actual = Lexer(input).asSequence().toList()
-
-        // Then
         assertContentEquals(expected, actual)
     }
 
@@ -35,6 +35,11 @@ class LexerTest {
     fun `should read delimiters`() {
         // Given
         val input = ", ; () {}"
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
         val expected = listOf(
             Token(Type.COMMA),
             Token(Type.SEMICOLON),
@@ -44,11 +49,6 @@ class LexerTest {
             Token(Type.RIGHT_BRACE),
             Token(Type.EOF),
         )
-
-        // When
-        val actual = Lexer(input).asSequence().toList()
-
-        // Then
         assertContentEquals(expected, actual)
     }
 
@@ -56,6 +56,11 @@ class LexerTest {
     fun `should read keywords`() {
         // Given
         val input = "let fn true false if else return"
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
         val expected = listOf(
             Token(Type.LET),
             Token(Type.FUNCTION),
@@ -66,11 +71,6 @@ class LexerTest {
             Token(Type.RETURN),
             Token(Type.EOF),
         )
-
-        // When
-        val actual = Lexer(input).asSequence().toList()
-
-        // Then
         assertContentEquals(expected, actual)
     }
 
@@ -78,6 +78,11 @@ class LexerTest {
     fun `should read identifiers`() {
         // Given
         val input = "foo Bar fooBar foo_baz _quux"
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
         val expected = listOf(
             Token(Type.IDENTIFIER, "foo"),
             Token(Type.IDENTIFIER, "Bar"),
@@ -86,11 +91,6 @@ class LexerTest {
             Token(Type.IDENTIFIER, "_quux"),
             Token(Type.EOF),
         )
-
-        // When
-        val actual = Lexer(input).asSequence().toList()
-
-        // Then
         assertContentEquals(expected, actual)
     }
 
@@ -98,17 +98,17 @@ class LexerTest {
     fun `should read number literals`() {
         // Given
         val input = "1 234 567890"
+
+        // When
+        val actual = Lexer(input).asSequence().toList()
+
+        // Then
         val expected = listOf(
             Token(Type.INTEGER, "1"),
             Token(Type.INTEGER, "234"),
             Token(Type.INTEGER, "567890"),
             Token(Type.EOF),
         )
-
-        // When
-        val actual = Lexer(input).asSequence().toList()
-
-        // Then
         assertContentEquals(expected, actual)
     }
 
@@ -116,14 +116,14 @@ class LexerTest {
     fun `should ignore whitespace`() {
         // Given
         val input = "  \n \r \t "
-        val expected = listOf(
-            Token(Type.EOF),
-        )
 
         // When
         val actual = Lexer(input).asSequence().toList()
 
         // Then
+        val expected = listOf(
+            Token(Type.EOF),
+        )
         assertContentEquals(expected, actual)
     }
 }
